@@ -23,7 +23,7 @@ public class AppointmentModel {
     private String hour;
     private String description;
 
-    //@OneToMany
+    //@OneToMany - um agendamento tem muitos usuarios
     @OneToMany(mappedBy = "appointment")
     private List<UserModel> users;
 
