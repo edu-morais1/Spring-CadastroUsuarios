@@ -1,6 +1,5 @@
 package dev.java.CadastroUsuarios.Appointments;
 
-
 import dev.java.CadastroUsuarios.Users.UserModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,12 +14,19 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppointmentModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
+    @Column(name = "'date'")
     private String date;
+
+    @Column(name = "'hour'")
     private String hour;
+
     private String description;
 
     //@OneToMany - um agendamento tem muitos usuarios
