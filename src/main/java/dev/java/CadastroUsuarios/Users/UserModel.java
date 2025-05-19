@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "tb_cadastro")
+@Table(name = "tb_users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,8 +18,8 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome")
-    private String nome;
+    @Column(name = "name")
+    private String name;
 
     @Column(unique = true)
     private String email;
@@ -27,8 +27,8 @@ public class UserModel {
     @Column(name = "img_url")
     private String imgUrl;
 
-    @Column(name = "idade")
-    private int idade;
+    @Column(name = "age")
+    private int age;
 
     //@ManyToOne um usuario tem um unico agendamento
     @ManyToOne

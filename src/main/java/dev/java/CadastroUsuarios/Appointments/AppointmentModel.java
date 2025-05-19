@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -21,11 +23,13 @@ public class AppointmentModel {
 
     private String name;
 
-    @Column(name = "'date'")
-    private String date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "appointment_date")
+    private LocalDate appointmentDate;
 
-    @Column(name = "'hour'")
-    private String hour;
+    @DateTimeFormat(pattern = "HH:mm")
+    @Column(name = "appointment_time")
+    private LocalTime appointmentTime;
 
     private String description;
 
