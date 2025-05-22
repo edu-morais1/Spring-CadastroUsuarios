@@ -1,9 +1,18 @@
 package dev.java.CadastroUsuarios.Users;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping
+@RequestMapping("/Users")
 public class UserController {
+
+    private UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping("/boasVindas")
     public String boasVindas(){
         return "Bem-vindo ao sistema de cadastro de usuários!";
@@ -29,5 +38,9 @@ public class UserController {
     public String deleteById(){
         return "Usuario deletado com sucesso!";
     }
-    // 
+    // Mostrar todos os usuarios(LIST)
+    @GetMapping("/ListUsers")
+    public List<UserModel> listarUsers(){
+        return userService.listarUsers();
+    }
 }

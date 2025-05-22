@@ -1,8 +1,6 @@
 package dev.java.CadastroUsuarios.Users;
-import dev.java.CadastroUsuarios.Appointments.AppointmentModel;
+import dev.java.CadastroUsuarios.Agendamento.AgendaModel;
 import jakarta.persistence.*;
-import java.util.List;
-import dev.java.CadastroUsuarios.Appointments.AppointmentModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +16,8 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "nome")
+    private String nome;
 
     @Column(unique = true)
     private String email;
@@ -27,12 +25,12 @@ public class UserModel {
     @Column(name = "img_url")
     private String imgUrl;
 
-    @Column(name = "age")
-    private int age;
+    @Column(name = "idade")
+    private int idade;
 
     //@ManyToOne um usuario tem um unico agendamento
     @ManyToOne
-    @JoinColumn(name = "appointment_id")
-    private AppointmentModel appointment;
+    @JoinColumn(name = "agenda_id")
+    private AgendaModel agenda;
 
 }
