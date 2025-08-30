@@ -25,11 +25,12 @@ public class UserModel {
     @Column(name = "img_url")
     private String imgUrl;
 
+    @Column(name = "rank")
+    private String rank;
+
     @Column(name = "idade")
     private int idade;
 
-    //@ManyToOne um usuario tem um unico agendamento
-    @ManyToOne
     @JoinColumn(name = "agenda_id")
     private AgendaModel agenda;
 
