@@ -36,9 +36,9 @@ public class UserController {
         return userService.listarUserById(id);
     }
     // Alterar dados dos usuarios(UPDATE)
-    @PutMapping("/ChangeById")
-    public String changeById(){
-        return "Dados alterados com sucesso!";
+    @PutMapping("/change/{id}")
+    public UserModel changeUserById(@PathVariable Long id, @RequestBody UserModel userUpdated){
+        return userService.updateUser(id, userUpdated);
     }
     // Deletar usuarios(DELETE)
     @DeleteMapping("/delete/{id}")
