@@ -22,8 +22,8 @@ public class UserController {
 
     // Adicionar Usuarios(CREATE)
     @PostMapping("/add")
-    public String addUser(){
-        return "Usuario adicionado com sucesso!";
+    public UserModel addUser(@RequestBody UserModel user){
+        return userService.createUser(user);
     }
     // Mostrar todos os usuarios(LIST)
     @GetMapping("/ListUsers")
