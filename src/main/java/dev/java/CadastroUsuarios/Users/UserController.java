@@ -22,22 +22,22 @@ public class UserController {
 
     // Adicionar Usuarios(CREATE)
     @PostMapping("/add")
-    public UserModel addUser(@RequestBody UserModel user){
+    public UserDTO addUser(@RequestBody UserDTO user){
         return userService.createUser(user);
     }
     // Mostrar todos os usuarios(LIST)
     @GetMapping("/ListUsers")
-    public List<UserModel> listarUsers(){
+    public List<UserDTO> listarUsers(){
         return userService.listarUsers();
     }
     // Procurar Usuarios por ID(READ)
     @GetMapping("/ShowId/{id}")//path variable
-    public UserModel showById(@PathVariable Long id){
+    public UserDTO showById(@PathVariable Long id){
         return userService.listarUserById(id);
     }
     // Alterar dados dos usuarios(UPDATE)
     @PutMapping("/change/{id}")
-    public UserModel changeUserById(@PathVariable Long id, @RequestBody UserModel userUpdated){
+    public UserDTO changeUserById(@PathVariable Long id, @RequestBody UserDTO userUpdated){
         return userService.updateUser(id, userUpdated);
     }
     // Deletar usuarios(DELETE)
