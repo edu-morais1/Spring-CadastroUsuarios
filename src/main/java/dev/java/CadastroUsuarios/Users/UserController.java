@@ -41,8 +41,8 @@ public class UserController {
         return "Dados alterados com sucesso!";
     }
     // Deletar usuarios(DELETE)
-    @DeleteMapping("/DeleteId")
-    public String deleteById(){
-        return "Usuario deletado com sucesso!";
+    @DeleteMapping("/delete/{id}")
+    public void deleteUserById(@PathVariable Long id){
+        userService.deleteUserById(id);
     }
 }
