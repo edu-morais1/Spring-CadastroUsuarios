@@ -31,6 +31,7 @@ public class UserModel {
     @Column(name = "idade")
     private int idade;
 
+    @ManyToOne
     @JoinColumn(name = "agenda_id")
     private AgendaModel agenda;
 
