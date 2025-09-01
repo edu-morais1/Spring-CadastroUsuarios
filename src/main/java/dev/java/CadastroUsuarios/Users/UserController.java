@@ -1,4 +1,6 @@
 package dev.java.CadastroUsuarios.Users;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,27 +24,50 @@ public class UserController {
 
     // Adicionar Usuarios(CREATE)
     @PostMapping("/add")
-    public UserDTO addUser(@RequestBody UserDTO user){
-        return userService.createUser(user);
+    public ResponseEntity addUser(@RequestBody UserDTO user){
+        UserDTO newUser = userService.createUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Usuário " + newUser.getNome() + " com o id" + newUser.getId() + " criado com sucesso!");
     }
     // Mostrar todos os usuarios(LIST)
     @GetMapping("/ListUsers")
-    public List<UserDTO> listarUsers(){
-        return userService.listarUsers();
+    public ResponseEntity<List<UserDTO>> listarUsers(){
+        List<UserDTO> users =userService.listarUsers();
+        return ResponseEntity.status(HttpStatus.OK).body(users);
     }
     // Procurar Usuarios por ID(READ)
     @GetMapping("/ShowId/{id}")//path variable
-    public UserDTO showById(@PathVariable Long id){
-        return userService.listarUserById(id);
+    public ResponseEntity<?> showById(@PathVariable Long id){
+        UserDTO user = userService.listarUserById(id);
+
+        if (user != null){
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Usuário com o id " + id + " não encontrado.");
+        }
     }
     // Alterar dados dos usuarios(UPDATE)
     @PutMapping("/change/{id}")
-    public UserDTO changeUserById(@PathVariable Long id, @RequestBody UserDTO userUpdated){
-        return userService.updateUser(id, userUpdated);
+    public ResponseEntity<?> changeUserById(@PathVariable Long id, @RequestBody UserDTO userUpdated){
+        UserDTO user = userService.updateUser(id, userUpdated);
+        if (user != null){
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Usuário com o id " + id + " não encontrado.");
+        }
     }
     // Deletar usuarios(DELETE)
     @DeleteMapping("/delete/{id}")
-    public void deleteUserById(@PathVariable Long id){
-        userService.deleteUserById(id);
+    public ResponseEntity<String> deleteUserById(@PathVariable Long id){
+         if (userService.listarUserById(id) != null){
+             userService.deleteUserById(id);
+             return ResponseEntity.status(HttpStatus.OK)
+                     .body("Usuário com o id " + id + " deletado com sucesso!");
+         } else {
+             return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                     .body("Usuário com o id " + id + " não encontrado.");
+         }
     }
 }
