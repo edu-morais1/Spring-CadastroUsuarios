@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "tb_users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "agenda")
 public class UserModel {
 
     @Id
