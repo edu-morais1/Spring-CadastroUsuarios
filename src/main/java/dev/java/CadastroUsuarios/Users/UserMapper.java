@@ -18,6 +18,7 @@ public class UserMapper {
 
     public UserDTO map(UserModel userModel) {
         UserDTO userDTO = new UserDTO();
+        userDTO.setId(userModel.getId());
         userDTO.setNome(userModel.getNome());
         userDTO.setEmail(userModel.getEmail());
         userDTO.setImgUrl(userModel.getImgUrl());
