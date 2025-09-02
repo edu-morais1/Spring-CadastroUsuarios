@@ -1,7 +1,6 @@
 package dev.java.CadastroUsuarios.Agendamento;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import dev.java.CadastroUsuarios.Users.UserModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,31 +13,31 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Entity
-@Table(name = "tb_agenda")
+@Table(name = "appointments")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class AgendaModel {
+public class AppointmentModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    private String name;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "agenda_data")
-    private LocalDate AgendaDate;
+    @Column(name = "appointment_date")
+    private LocalDate appointmentDate;
 
     @DateTimeFormat(pattern = "HH:mm")
-    @Column(name = "Agenda_time")
-    private LocalTime AgendaTime;
+    @Column(name = "appointment_time")
+    private LocalTime appointmentTime;
 
     private String description;
 
     //@OneToMany - um agendamento tem muitos usuarios
-    @OneToMany(mappedBy = "agenda")
+    @OneToMany(mappedBy = "appointment")
     @JsonIgnore
     private List<UserModel> users;
 

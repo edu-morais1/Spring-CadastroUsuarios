@@ -7,24 +7,24 @@ public class UserMapper {
 
     public UserModel map(UserDTO userDTO) {
         UserModel userModel = new UserModel();
-        userModel.setNome(userDTO.getNome());
+        userModel.setName(userDTO.getName());
         userModel.setEmail(userDTO.getEmail());
         userModel.setImgUrl(userDTO.getImgUrl());
         userModel.setRank(userDTO.getRank());
-        userModel.setIdade(userDTO.getIdade());
-        userModel.setAgenda(userDTO.getAgenda());
+        userModel.setAge(userDTO.getAge());
+        userModel.setAppointment(userDTO.getAppointment());
         return userModel;
     }
 
     public UserDTO map(UserModel userModel) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(userModel.getId());
-        userDTO.setNome(userModel.getNome());
+        userDTO.setName(userModel.getName());
         userDTO.setEmail(userModel.getEmail());
         userDTO.setImgUrl(userModel.getImgUrl());
         userDTO.setRank(userModel.getRank());
-        userDTO.setIdade(userModel.getIdade());
-        userDTO.setAgenda(userModel.getAgenda());
+        userDTO.setAge(userModel.getAge());
+        userDTO.setAppointment(userModel.getAppointment());
         return userDTO;
     }
 }

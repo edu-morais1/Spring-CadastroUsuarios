@@ -3,7 +3,7 @@ package dev.java.CadastroUsuarios.Agendamento;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AgendaMapper {
+public class AppointmentMapper {
 
     // Converte de DTO para Model
     public AppointmentModel toModel(AppointmentDTO dto) {

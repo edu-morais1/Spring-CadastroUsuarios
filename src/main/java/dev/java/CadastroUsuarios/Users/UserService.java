@@ -1,13 +1,10 @@
 package dev.java.CadastroUsuarios.Users;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class UserService {
@@ -22,7 +19,7 @@ public class UserService {
     }
 
     //Listar todos os meus users
-    public List<UserDTO> listarUsers(){
+    public List<UserDTO> getAllUsers(){
         List<UserModel> users = userRepository.findAll();
         return users.stream()
                 .map(userMapper::map)
@@ -30,7 +27,7 @@ public class UserService {
     }
 
     //Lista todos os mus users por ID
-    public UserDTO listarUserById(Long id) {
+    public UserDTO getUserById(Long id) {
         Optional<UserModel> userById = userRepository.findById(id);
         return userById.map(userMapper::map).orElse(null);
     }

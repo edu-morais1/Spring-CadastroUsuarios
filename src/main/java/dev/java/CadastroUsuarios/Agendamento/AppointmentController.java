@@ -7,24 +7,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/agendas") // Alterado para /api/agendas para diferenciar da UI
-public class AgendaController {
+@RequestMapping("/api/v1/appointments") // Alterado para /api/agendas para diferenciar da UI
+public class AppointmentController {
 
     private final AppointmentService appointmentService;
 
-    public AgendaController(AppointmentService appointmentService) {
+    public AppointmentController(AppointmentService appointmentService) {
         this.appointmentService = appointmentService;
     }
 
     @GetMapping
     public ResponseEntity<List<AppointmentDTO>> listarTodas() {
-        List<AppointmentDTO> agendas = appointmentService.listarAgendas();
+        List<AppointmentDTO> agendas = appointmentService.getAllAppointments();
         return ResponseEntity.ok(agendas);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AppointmentDTO> buscarPorId(@PathVariable Long id) {
-        AppointmentDTO agenda = appointmentService.buscarPorId(id);
+        AppointmentDTO agenda = appointmentService.getAppointmentById(id);
         if (agenda != null) {
             return ResponseEntity.ok(agenda);
         }
@@ -33,13 +33,13 @@ public class AgendaController {
 
     @PostMapping
     public ResponseEntity<AppointmentDTO> criar(@RequestBody AppointmentDTO appointmentDTO) {
-        AppointmentDTO novaAgenda = appointmentService.criarAgenda(appointmentDTO);
+        AppointmentDTO novaAgenda = appointmentService.createAppointment(appointmentDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaAgenda);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AppointmentDTO> atualizar(@PathVariable Long id, @RequestBody AppointmentDTO appointmentDTO) {
-        AppointmentDTO agendaAtualizada = appointmentService.atualizarAgenda(id, appointmentDTO);
+        AppointmentDTO agendaAtualizada = appointmentService.updateAppointment(id, appointmentDTO);
         if (agendaAtualizada != null) {
             return ResponseEntity.ok(agendaAtualizada);
         }
@@ -48,7 +48,7 @@ public class AgendaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        if (appointmentService.deletarAgenda(id)) {
+        if (appointmentService.deleteAppointment(id)) {
             return ResponseEntity.noContent().build(); // Sucesso, sem conteúdo para retornar
         }
         return ResponseEntity.notFound().build();

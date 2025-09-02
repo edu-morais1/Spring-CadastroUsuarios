@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/users/ui")
-public class UserControllerUI {
+@RequestMapping("/users")
+public class UserWebController {
 
     private final UserService userService;
     private final AppointmentRepository appointmentRepository;
 
-    public UserControllerUI(UserService userService, AppointmentRepository appointmentRepository) {
+    public UserWebController(UserService userService, AppointmentRepository appointmentRepository) {
         this.userService = userService;
         this.appointmentRepository = appointmentRepository;
     }
     //Localhost:8080/users/ui/listarUsers
-    @GetMapping("/listarUsers")
-    public String listarUsers(Model model){
-        List<UserDTO> users = userService.listarUsers();
+    @GetMapping//("/showUserList")
+    public String showUserList(Model model){
+        List<UserDTO> users = userService.getAllUsers();
         model.addAttribute("users", users);
         return "users/listarUsers"; // Nome do arquivo list-users.html
     }
@@ -38,12 +38,12 @@ public class UserControllerUI {
     @PostMapping("/save")
     public String saveUser(@ModelAttribute("user") UserDTO user) {
         userService.createUser(user);
-        return "redirect:/users/ui/listarUsers"; // Redireciona para a lista de usuários após salvar
+        return "redirect:/users"; // Redireciona para a lista de usuários após salvar
     }
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
-        UserDTO user = userService.listarUserById(id);
+        UserDTO user = userService.getUserById(id);
         List<AppointmentModel> agendas = appointmentRepository.findAll();
         model.addAttribute("user", user);
         model.addAttribute("allAgendas", agendas); // Lista de agendas para o <select>
@@ -53,12 +53,12 @@ public class UserControllerUI {
     @PostMapping("/update/{id}")
     public String updateUser(@PathVariable("id") Long id, @ModelAttribute("user") UserDTO user) {
         userService.updateUser(id, user);
-        return "redirect:/users/ui/listarUsers"; // Redireciona para a lista de usuários após atualizar
+        return "redirect:/users"; // Redireciona para a lista de usuários após atualizar
     }
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
-        return "redirect:/users/ui/listarUsers"; // Redireciona para a lista de usuários após deletar
+        return "redirect:/users"; // Redireciona para a lista de usuários após deletar
     }
 }

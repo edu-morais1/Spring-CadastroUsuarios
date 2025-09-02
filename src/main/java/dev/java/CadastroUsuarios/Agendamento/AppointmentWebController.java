@@ -5,46 +5,46 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/web/agendas")
-public class AgendaControllerUI {
+@RequestMapping("/appointments")
+public class AppointmentWebController {
 
     private final AppointmentService appointmentService;
 
-    public AgendaControllerUI(AppointmentService appointmentService) {
+    public AppointmentWebController(AppointmentService appointmentService) {
         this.appointmentService = appointmentService;
     }
 
     @GetMapping
-    public String listarAgendas(Model model) {
-        model.addAttribute("agendas", appointmentService.listarAgendas());
+    public String showAppointmentList(Model model) {
+        model.addAttribute("agendas", appointmentService.getAllAppointments());
         return "agenda/list-agendas"; // -> templates/agendas/list-agendas.html
     }
 
     @GetMapping("/new")
-    public String showFormularioCriacao(Model model) {
+    public String showAppointmentCreate(Model model) {
         model.addAttribute("agenda", new AppointmentDTO());
         return "agenda/form-agenda"; // -> templates/agendas/form-agenda.html
     }
 
     @PostMapping("/save")
-    public String salvarAgenda(@ModelAttribute("agenda") AppointmentDTO appointmentDTO) {
+    public String saveAppointment(@ModelAttribute("agenda") AppointmentDTO appointmentDTO) {
         if (appointmentDTO.getId() == null) {
-            appointmentService.criarAgenda(appointmentDTO);
+            appointmentService.createAppointment(appointmentDTO);
         } else {
-            appointmentService.atualizarAgenda(appointmentDTO.getId(), appointmentDTO);
+            appointmentService.updateAppointment(appointmentDTO.getId(), appointmentDTO);
         }
-        return "redirect:/web/agendas";
+        return "redirect:/appointments";
     }
 
     @GetMapping("/edit/{id}")
     public String showFormularioEdicao(@PathVariable Long id, Model model) {
-        model.addAttribute("agenda", appointmentService.buscarPorId(id));
+        model.addAttribute("agenda", appointmentService.getAppointmentById(id));
         return "agenda/form-agenda";
     }
 
     @GetMapping("/delete/{id}")
     public String deletarAgenda(@PathVariable Long id) {
-        appointmentService.deletarAgenda(id);
-        return "redirect:/web/agendas";
+        appointmentService.deleteAppointment(id);
+        return "redirect:/appointments";
     }
 }

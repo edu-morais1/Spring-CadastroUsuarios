@@ -1,5 +1,5 @@
 package dev.java.CadastroUsuarios.Users;
-import dev.java.CadastroUsuarios.Agendamento.AgendaModel;
+import dev.java.CadastroUsuarios.Agendamento.AppointmentModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,19 +7,19 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "tb_users")
+@Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "agenda")
+@ToString(exclude = "appointment")
 public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome")
-    private String nome;
+    @Column(name = "name")
+    private String name;
 
     @Column(unique = true)
     private String email;
@@ -30,11 +30,11 @@ public class UserModel {
     @Column(name = "rank")
     private String rank;
 
-    @Column(name = "idade")
-    private int idade;
+    @Column(name = "age")
+    private int age;
 
     @ManyToOne
-    @JoinColumn(name = "agenda_id")
-    private AgendaModel agenda;
+    @JoinColumn(name = "appointment_id")
+    private AppointmentModel appointment;
 
 }

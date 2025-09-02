@@ -6,46 +6,46 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class AgendaService {
+public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
-    private final AgendaMapper agendaMapper;
+    private final AppointmentMapper appointmentMapper;
 
-    public AgendaService(AppointmentRepository appointmentRepository, AgendaMapper agendaMapper) {
+    public AppointmentService(AppointmentRepository appointmentRepository, AppointmentMapper appointmentMapper) {
         this.appointmentRepository = appointmentRepository;
-        this.agendaMapper = agendaMapper;
+        this.appointmentMapper = appointmentMapper;
     }
 
-    public List<AppointmentDTO> listarAgendas() {
+    public List<AppointmentDTO> getAllAppointments() {
         return appointmentRepository.findAll()
                 .stream()
-                .map(agendaMapper::toDTO)
+                .map(appointmentMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    public AppointmentDTO buscarPorId(Long id) {
+    public AppointmentDTO getAppointmentById(Long id) {
         return appointmentRepository.findById(id)
-                .map(agendaMapper::toDTO)
+                .map(appointmentMapper::toDTO)
                 .orElse(null);
     }
 
-    public AppointmentDTO criarAgenda(AppointmentDTO appointmentDTO) {
-        AppointmentModel agenda = agendaMapper.toModel(appointmentDTO);
+    public AppointmentDTO createAppointment(AppointmentDTO appointmentDTO) {
+        AppointmentModel agenda = appointmentMapper.toModel(appointmentDTO);
         agenda = appointmentRepository.save(agenda);
-        return agendaMapper.toDTO(agenda);
+        return appointmentMapper.toDTO(agenda);
     }
 
-    public AppointmentDTO atualizarAgenda(Long id, AppointmentDTO appointmentDTO) {
+    public AppointmentDTO updateAppointment(Long id, AppointmentDTO appointmentDTO) {
         if (appointmentRepository.existsById(id)) {
-            AppointmentModel agenda = agendaMapper.toModel(appointmentDTO);
+            AppointmentModel agenda = appointmentMapper.toModel(appointmentDTO);
             agenda.setId(id); // Garante que estamos atualizando a agenda correta
             agenda = appointmentRepository.save(agenda);
-            return agendaMapper.toDTO(agenda);
+            return appointmentMapper.toDTO(agenda);
         }
         return null; // Retorna nulo se não encontrar a agenda
     }
 
-    public boolean deletarAgenda(Long id) {
+    public boolean deleteAppointment(Long id) {
         if (appointmentRepository.existsById(id)) {
             appointmentRepository.deleteById(id);
             return true;

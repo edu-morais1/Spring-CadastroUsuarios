@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>dev.java</groupId>
-	<artifactId>CadastroUsuarios</artifactId>
+	<artifactId>UserManagement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CadastroUsuarios</name>
 	<description>Uma API para cadastro de usuarios</description>

@@ -11,15 +11,15 @@ import java.time.LocalTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AgendaDTO {
+public class AppointmentDTO {
 
     private Long id;
-    private String nome;
+    private String name;
     private String description;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate agendaDate;
+    private LocalDate appointmentDate;
 
     @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime agendaTime;
+    private LocalTime appointmentTime;
 }
