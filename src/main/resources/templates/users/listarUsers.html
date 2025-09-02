@@ -16,10 +16,10 @@
         </div>
         <div class="card-body">
             <p>Use os botões abaixo para listar, criar ou editar os agendamentos do sistema.</p>
-            <a th:href="@{/web/agendas}" class="btn btn-info">
+            <a th:href="@{/appointments}" class="btn btn-info">
                 <i class="bi bi-list-ul"></i> Listar Agendas
             </a>
-            <a th:href="@{/web/agendas/new}" class="btn btn-success">
+            <a th:href="@{/appointments/new}" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i> Adicionar Nova Agenda
             </a>
         </div>
@@ -29,38 +29,24 @@
 
     <h3><i class="bi bi-people-fill"></i> Usuários Cadastrados</h3>
     <div class="mb-3">
-        <a th:href="@{/users/ui/new}" class="btn btn-primary">
+        <a th:href="@{/users/new}" class="btn btn-primary">
             <i class="bi bi-person-plus-fill"></i> Adicionar Novo Usuário
         </a>
     </div>
 
-    <div th:if="${#lists.isEmpty(users)}">
-        <div class="alert alert-warning">Nenhum usuário cadastrado.</div>
-    </div>
-
     <table class="table table-striped table-bordered" th:unless="${#lists.isEmpty(users)}">
-        <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Rank</th>
-            <th>Agenda Associada</th>
-            <th>Ações</th>
-        </tr>
-        </thead>
         <tbody>
         <tr th:each="user : ${users}">
             <td th:text="${user.id}"></td>
-            <td th:text="${user.nome}"></td>
+            <td th:text="${user.name}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.rank}"></td>
-            <td th:text="${user.agenda != null ? user.agenda.nome : 'Nenhuma'}"></td>
+            <td th:text="${user.appointment != null ? user.appointment.name : 'Nenhuma'}"></td>
             <td>
-                <a th:href="@{/users/ui/edit/{id}(id=${user.id})}" class="btn btn-warning btn-sm">
+                <a th:href="@{/users/edit/{id}(id=${user.id})}" class="btn btn-warning btn-sm">
                     <i class="bi bi-pencil-square"></i> Editar
                 </a>
-                <a th:href="@{/users/ui/delete/{id}(id=${user.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar este usuário?');">
+                <a th:href="@{/users/delete/{id}(id=${user.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar este usuário?');">
                     <i class="bi bi-trash-fill"></i> Deletar
                 </a>
             </td>

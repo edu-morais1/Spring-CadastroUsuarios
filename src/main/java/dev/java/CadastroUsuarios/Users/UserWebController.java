@@ -1,7 +1,7 @@
 package dev.java.CadastroUsuarios.Users;
 
-import dev.java.CadastroUsuarios.Agendamento.AgendaModel;
-import dev.java.CadastroUsuarios.Agendamento.AgendaRepository;
+import dev.java.CadastroUsuarios.Agendamento.AppointmentModel;
+import dev.java.CadastroUsuarios.Agendamento.AppointmentRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +13,11 @@ import java.util.List;
 public class UserControllerUI {
 
     private final UserService userService;
-    private final AgendaRepository agendaRepository;
+    private final AppointmentRepository appointmentRepository;
 
-    public UserControllerUI(UserService userService, AgendaRepository agendaRepository) {
+    public UserControllerUI(UserService userService, AppointmentRepository appointmentRepository) {
         this.userService = userService;
-        this.agendaRepository = agendaRepository;
+        this.appointmentRepository = appointmentRepository;
     }
     //Localhost:8080/users/ui/listarUsers
     @GetMapping("/listarUsers")
@@ -29,7 +29,7 @@ public class UserControllerUI {
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        List<AgendaModel> agendas = agendaRepository.findAll();
+        List<AppointmentModel> agendas = appointmentRepository.findAll();
         model.addAttribute("user", new UserDTO()); // Objeto para o formulário preencher
         model.addAttribute("allAgendas", agendas); // Lista de agendas para o <select>
         return "users/add-user"; // Nome do arquivo add-user.html
@@ -44,7 +44,7 @@ public class UserControllerUI {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         UserDTO user = userService.listarUserById(id);
-        List<AgendaModel> agendas = agendaRepository.findAll();
+        List<AppointmentModel> agendas = appointmentRepository.findAll();
         model.addAttribute("user", user);
         model.addAttribute("allAgendas", agendas); // Lista de agendas para o <select>
         return "users/edit-users"; // Nome do arquivo edit-user.html
